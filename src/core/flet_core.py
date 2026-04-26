@@ -2,6 +2,9 @@ from dataclasses import dataclass, field
 
 import flet as ft
 
+from core.cache.system_state import SystemState
+from core.routing.route_registry import _init_routes
+
 
 @dataclass(frozen=True)
 class CoreSettings:
@@ -16,9 +19,17 @@ class CoreSettings:
 
 
 async def init_core(page: ft.Page, cfg: CoreSettings) -> None:
-    # Init Fonts
-    # Init database
+    await SystemState.init(cfg.db_folder, cfg.db_filename)
+    _init_fonts(page, cfg.fonts)
     _init_page(page, cfg)
+    _init_routes()
+
+
+def _init_fonts(page: ft.Page, fonts: dict[str, str]) -> None:
+    if not fonts:
+        return
+
+    page.fonts = fonts
 
 
 def _init_page(page: ft.Page, cfg: CoreSettings) -> None:

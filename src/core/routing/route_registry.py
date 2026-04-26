@@ -9,7 +9,7 @@ import flet as ft
 # ------------------------------------------------------ #
 
 
-def init_routes() -> None:
+def _init_routes() -> None:
     """
     Called to import modules from src.gui folder which in turn
     will call the associated register_route decorator.

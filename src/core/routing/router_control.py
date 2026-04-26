@@ -3,7 +3,7 @@ import flet as ft
 from core.routing.route_registry import get_route
 from core.routing.router_context import get_router_context
 from core.routing.router_state import History, HistoryStack, RouterState
-from core.routing.theme_context import THEME_CONTEXT
+from core.routing.theme_context import ThemeState
 
 # --- Router Class --- #
 # -------------------- #
@@ -23,7 +23,7 @@ def Router() -> list[ft.View]:
     router = ft.use_context(get_router_context())
 
     # --- Theme mode context value --- #
-    theme_mode_context = ft.use_context(THEME_CONTEXT)
+    theme_mode_context, _ = ft.use_state(ThemeState.get())
 
     # --- Page route events (keep flet controls out of models) --- #
     def route_changed(ev: ft.RouteChangeEvent) -> None:
