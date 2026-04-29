@@ -1,3 +1,4 @@
+from core.cache.db_state import DBState
 from core.cache.state import State
 from core.flet_core import CoreSettings, init_core
 from core.routing.route_registry import register_route
@@ -14,4 +15,5 @@ __all__ = [
     "push",
     "query",
     "State",
+    "DBState",
 ]
