@@ -1,12 +1,20 @@
 import flet as ft
 
-from core import CoreSettings, Router, init_core
+from core import CoreSettings, init_core
 
 
 async def main(page: ft.Page):
-    settings = CoreSettings(title="Flet Core")
+    fonts = {
+        "fonts/Nunito-Bold.ttf": "Nunito-Bold",
+        "fonts/Nunito-Regular.ttf": "Nunito-Regular",
+    }
+
+    settings = CoreSettings(
+        title="AGA Clockcard",
+        fonts=fonts,
+    )
+
     await init_core(page, settings)
-    page.render_views(Router)
 
 
 ft.run(main)

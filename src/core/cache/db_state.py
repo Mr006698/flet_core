@@ -49,10 +49,14 @@ class DBState(_StateCache):
         if self._db is None:
             raise DBStateError("Trying to save when DBState._db is None!")
 
-        print("Saving Data:")
-        print(f"{self.__class__.__name__}: {asdict(self)}")
         # --- Save updated attributes --- #
-        ### TODO ###
+        cls_name = self.__class__.__name__
+        db_table = self._db.table(cls_name)
+        for field, value in asdict(self).items():
+            db_entry = db_table.get(where(field).exists())
+            db_value = cast(Document, db_entry).get(field)
+            if db_value != value:
+                db_table.update({field: value})
 
     async def async_save(self) -> None:
         self.save()
@@ -92,3 +96,7 @@ class DBState(_StateCache):
                 cls_dict[field] = db_value
 
         return cls_dict
+
+    # def __init_subclass__(cls) -> None:
+    #     print(f"Called: {cls.__name__}")
+    #     return super().__init_subclass__()

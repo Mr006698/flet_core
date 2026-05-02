@@ -4,6 +4,7 @@ import flet as ft
 
 from core.cache.system_state import SystemState
 from core.routing.route_registry import _init_routes
+from core.routing.router_control import Router
 
 
 @dataclass(frozen=True)
@@ -23,6 +24,8 @@ async def init_core(page: ft.Page, cfg: CoreSettings) -> None:
     _init_fonts(page, cfg.fonts)
     _init_page(page, cfg)
     _init_routes()
+
+    page.render_views(Router)
 
 
 def _init_fonts(page: ft.Page, fonts: dict[str, str]) -> None:
